@@ -5,6 +5,17 @@ import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
+import {
+  GestureDetector,
+  Gesture,
+  Directions,
+} from "react-native-gesture-handler";
+import Animated, {
+  LightSpeedInRight,
+  LightSpeedOutLeft,
+  FadeIn,
+  FadeOut,
+} from "react-native-reanimated";
 
 const onboardingData = [
   {
@@ -29,39 +40,79 @@ const onboardingData = [
 const OnBoarding = () => {
   const [onBoard, setOnBoard] = useState(0);
   const onPressCountinue = () => {
-    onBoard < 2 ? setOnBoard(onBoard + 1) : setOnBoard(0);
+    if (onBoard < 2) {
+      setOnBoard(onBoard + 1);
+    } else {
+      setOnBoard(0);
+      router.push("/day2/newonboarding");
+    }
   };
+  // const onBack = () => {
+  //   onBoard > 0 ? setOnBoard(onBoard - 1) : setOnBoard(0);
+  // };
   const data = onboardingData[onBoard];
 
+  // Fling Gesture
+  // const swipeRight = Gesture.Fling()
+  //   .direction(Directions.RIGHT)
+  //   .onEnd((event) => {
+  //     onPressCountinue();
+  //   });
+  // const swipeLeft = Gesture.Fling()
+  //   .direction(Directions.LEFT)
+  //   .onEnd((event) => {
+  //     onBack();
+  //   });
+  // const swiper = Gesture.Simultaneous(swipeLeft, swipeRight);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#38437A" }}>
-      <View style={Styles.container}>
+      <View key={onBoard} style={Styles.container}>
         <Stack.Screen options={{ headerShown: false }} />
-        <View style={{ flex: 1 }}></View>
+        <View style={Styles.stepIndicatorContainer}>
+          {onboardingData.map((item, index) => (
+            <View
+              key={index}
+              style={{
+                height: 3,
+                borderRadius: 20,
+                flex: 1,
+                backgroundColor: onBoard === index ? "#FFFFFF" : "gray",
+              }}
+            ></View>
+          ))}
+        </View>
 
         <View style={Styles.subContainer}>
           <FontAwesome5 name={data.icon} size={100} color="#DF511C" />
           <View style={{ gap: 12, alignItems: "center" }}>
-            <Text style={Styles.textStyle}>{data.heading}</Text>
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 19,
-                color: "#bcbcbc",
-                fontFamily: "InterLight",
-                paddingHorizontal: 4,
-                lineHeight: 26,
-              }}
+            <Animated.View
+              entering={LightSpeedInRight}
+              exiting={LightSpeedOutLeft}
             >
-              {data.description}
-            </Text>
+              <Text style={Styles.textStyle}>{data.heading}</Text>
+            </Animated.View>
+            <Animated.View entering={FadeIn.delay(300)} exiting={FadeOut}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 19,
+                  color: "#bcbcbc",
+                  fontFamily: "InterLight",
+                  paddingHorizontal: 4,
+                  lineHeight: 26,
+                }}
+              >
+                {data.description}
+              </Text>
+            </Animated.View>
           </View>
         </View>
       </View>
+
       <View style={{ padding: 18 }}>
         <View style={{ alignItems: "flex-end" }}>
           <TouchableOpacity
-            onPress={() => router.back()}
+            onPress={() => router.push("/(days)/day2/newonboarding")}
             style={{
               borderWidth: 0.5,
               borderColor: "#aaaaaa",
@@ -106,7 +157,6 @@ const Styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     padding: 10,
   },
   textStyle: {
@@ -114,15 +164,14 @@ const Styles = StyleSheet.create({
     color: "#FFFFFF",
     fontFamily: "InterExBold",
     letterSpacing: 2,
-    textAlign:'center'
+    textAlign: "center",
   },
   subContainer: {
     flex: 3,
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 10,
-    paddingHorizontal:4,
-
+    paddingHorizontal: 4,
   },
 
   btn: {
@@ -134,6 +183,14 @@ const Styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0.5 },
     shadowOpacity: 0.5,
     shadowRadius: 1,
+  },
+  stepIndicatorContainer: {
+    flex: 1,
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 4,
+    paddingHorizontal: 30,
   },
 });
 export default OnBoarding;
