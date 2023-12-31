@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  FlatList,
-  SafeAreaView,
-} from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 
-
-import DayListComp from "../components/DayListComp";
+import DayListComp from "./components/DayListComp";
 
 const HomeScreen = () => {
-
-
   const days = [...Array(24)].map((item, index) => index + 1);
   return (
     <SafeAreaView>

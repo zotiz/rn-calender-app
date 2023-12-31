@@ -11,7 +11,7 @@ import {
   AmaticSC_700Bold,
   
 } from "@expo-google-fonts/amatic-sc";
-
+import {CourierPrime_400Regular,CourierPrime_400Regular_Italic} from "@expo-google-fonts/courier-prime";
 const FontProvider = ({ children }: any) => {
   const [fontLoaded, fontError] = useFonts({
     AmaticSc: AmaticSC_400Regular,
@@ -19,7 +19,8 @@ const FontProvider = ({ children }: any) => {
     InterRegular:Inter_400Regular,
     InterBold:Inter_700Bold,
     InterExBold:Inter_800ExtraBold,
-    InterLight:Inter_300Light
+    InterLight:Inter_300Light,
+    CourierPrimeItalic:CourierPrime_400Regular_Italic
   });
   useEffect(() => {
     if (!fontLoaded && !fontError) {

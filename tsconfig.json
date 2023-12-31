@@ -2,12 +2,30 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "baseUrl": "./",
+    "jsx": "react-native",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true
   },
-
+  "paths": {
+    "@/*": ["app/*"],
+    "@/components/*": ["components/*"],
+   
+  },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "app/components/**/*.ts",
+    "app/components/**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/(days)/day1/index.tsx"  ]
+  ],
+  "exclude": ["node_modules"]
 }
