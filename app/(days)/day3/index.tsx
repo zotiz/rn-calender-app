@@ -20,7 +20,7 @@ const description = `
 const Markdown = () => {
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
-      <Stack.Screen options={{ title: "Markdown" }} />
+      <Stack.Screen options={{ title: "Day3 : Markdown" }} />
       <MarkdownDisplay>{description}</MarkdownDisplay>
       <Link href={`/day3/editpage`} asChild>
         <Button title="Go to Editer page" />

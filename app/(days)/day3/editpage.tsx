@@ -4,81 +4,74 @@ import React, { useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-const copy = `# Markdown Example with Image
+// const copy = `
+// # Sample Markdown Content
 
-## Introduction
-Markdown is a lightweight markup language that is easy to read and write. It allows you to format text using simple syntax.
+// ## Introduction
 
-## Text Formatting
-You can *italicize*, **bold**, or ~~strike through~~ text easily.
+// Markdown is a lightweight markup language that is easy to read and write. It provides a simple syntax for formatting text.
 
-## Lists
-### Ordered List
-1. Item 1
-2. Item 2
-3. Item 3
+// ## Text Formatting
 
-### Unordered List
-- Bullet 1
-- Bullet 2
-- Bullet 3
-![Minion](https://octodex.github.com/images/minion.png)
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-Like links, Images also have a footnote style syntax
-[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
-![Alt text][id]
+// You can _italicize_, **bold**, or ~~strike through~~ text easily.
 
-With a reference later in the document defining the URL location:
+// ## Lists
 
-[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+// ### Ordered List
+// 1. Item 1
+// 2. Item 2
+// 3. Item 3
 
-## Sample Table
+// ### Unordered List
+// - Bullet 1
+// - Bullet 2
+// - Bullet 3
 
-| Column 1 Header | Column 2 Header | Column 3 Header |
-| --------------- | --------------- | --------------- |
-| Row 1, Col 1    | Row 1, Col 2    | Row 1, Col 3    |
-| Row 2, Col 1    | Row 2, Col 2    | Row 2, Col 3    |
-| Row 3, Col 1    | Row 3, Col 2    | Row 3, Col 3    |
+// ## Sample Table
 
-### Code Block
+// | Column 1 Header | Column 2 Header | Column 3 Header |
+// | --------------- | --------------- | --------------- |
+// | Row 1, Col 1    | Row 1, Col 2    | Row 1, Col 3    |
+// | Row 2, Col 1    | Row 2, Col 2    | Row 2, Col 3    |
+// | Row 3, Col 1    | Row 3, Col 2    | Row 3, Col 3    |
 
-\`\`\` js
-async function fetchData() {
-  try {
-    const response = await fetch('https://api.example.com/data');
+// ## Images
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
+// ![Sample Image 1](https://cdn.britannica.com/45/5645-050-B9EC0205/head-treasure-flower-disk-flowers-inflorescence-ray.jpg)
 
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error('There was a problem with the fetch operation:', error);
-  }
-}
+// ![Sample Image 2](https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?cs=srgb&dl=pexels-pixabay-56866.jpg&fm=jpg "Image with a title")
 
-fetchData();
+// ## Links
 
-\`\`\`
+// [Visit our website](https://example.com)
 
-`;
-const template = ` 
- # heading
-`;
+// ## Code Block
+
+// javascript
+// const greeting = "Hello, Markdown!";
+// console.log(greeting);
+
+// `;
 
 const EditPage = () => {
   const [edit, setEdit] = useState(true);
   const [inputValue, setInputValue] = useState("");
-  console.log(edit);
+
   return (
     <View style={{ flex: 1, paddingHorizontal: 15 }}>
       {/* <ScrollView style={{backgroundColor:'green'}}
         showsVerticalScrollIndicator={false}
         contentInsetAdjustmentBehavior="automatic"
       > */}
-      <Stack.Screen options={{ title: "Edit Page" }} />
-      <View style={{ flexDirection: "row", gap: 20, paddingVertical: 10, marginVertical:10}}>
+      <Stack.Screen options={{ title: "Edit Page", headerBackTitleVisible:false }} />
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 20,
+          paddingVertical: 10,
+          marginVertical: 10,
+        }}
+      >
         <Pressable
           style={{
             flex: 1,
@@ -145,14 +138,16 @@ const EditPage = () => {
             backgroundColor: "white",
           }}
         >
-          <TextInput
-            autoFocus
-            value={edit ? inputValue : ""}
-            multiline
-            placeholder="Edit the markdown text..."
-            style={{ fontSize: 20, backgroundColor: "white" }}
-            onChangeText={(text) => setInputValue(text)}
-          />
+          <View>
+            <TextInput
+              autoFocus
+              value={inputValue}
+              multiline
+              placeholder="Edit the markdown text..."
+              style={{ fontSize: 20, backgroundColor: "white" }}
+              onChangeText={(text) => setInputValue(text)}
+            />
+          </View>
         </ScrollView>
       ) : (
         <ScrollView
@@ -163,9 +158,6 @@ const EditPage = () => {
           <MarkdownDisplay>{inputValue}</MarkdownDisplay>
         </ScrollView>
       )}
-
-      {/*  */}
-      {/* </ScrollView> */}
     </View>
   );
 };

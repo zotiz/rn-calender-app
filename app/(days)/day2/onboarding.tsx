@@ -110,10 +110,11 @@ const OnBoarding = () => {
       </View>
 
       <View style={{ padding: 18 }}>
-        <View style={{ alignItems: "flex-end" }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TouchableOpacity
-            onPress={() => router.push("/(days)/day2/newonboarding")}
+            onPress={() => router.push("/(days)/day2")}
             style={{
+              flexDirection:'row',
               borderWidth: 0.5,
               borderColor: "#aaaaaa",
               width: 100,
@@ -121,6 +122,34 @@ const OnBoarding = () => {
               alignItems: "center",
               padding: 8,
               borderRadius: 20,
+              gap:7
+            }}
+          >
+            <FontAwesome5 name={"angle-left"} size={18} color="white" />
+
+            <Text
+              style={{
+                fontFamily: "InterRegular",
+                fontSize: 18,
+                color: "white",
+                textAlign: "right",
+              }}
+            >
+              back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.push("/(days)/day2/newonboarding")}
+            style={{
+              flexDirection:'row',
+              borderWidth: 0.5,
+              borderColor: "#aaaaaa",
+              width: 100,
+              justifyContent: "center",
+              alignItems: "center",
+              padding: 8,
+              borderRadius: 20,
+              gap:7
             }}
           >
             <Text
@@ -133,6 +162,7 @@ const OnBoarding = () => {
             >
               skip
             </Text>
+            <FontAwesome5 name={"angle-right"} size={18} color="white" />
           </TouchableOpacity>
         </View>
 
